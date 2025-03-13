@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 public/data
+public/potree
+public/potree_libs

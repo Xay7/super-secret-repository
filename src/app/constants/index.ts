@@ -1,1 +1,0 @@
-export const BASE_PROJECTION = "EPSG:3857";

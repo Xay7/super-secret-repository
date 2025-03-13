@@ -13,7 +13,7 @@ function App() {
     <div style={appStyle}>
       <div style={toolbarStyle}>
         <button onClick={toggleViewMode} style={buttonStyle}>
-          Zmień widok na {viewMode === '3D' ? '2D' : '3D'}
+          Zmień widok na {viewMode === '3D' ? '3D' : '2D'}
         </button>
       </div>
 

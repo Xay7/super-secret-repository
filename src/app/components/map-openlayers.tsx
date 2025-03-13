@@ -19,7 +19,7 @@ const OpenStreetMapComponent = () => {
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
       <div style={panelStyle}>
-        <h3 style={{ marginBottom: '15px' }}>Layers</h3>
+        <h3 style={{ marginBottom: '15px' }}>Warstwy</h3>
         {isMapReady &&
           layers.map((layer) => (
             <div key={layer.layer.get('name')} style={{ marginBottom: '15px' }}>

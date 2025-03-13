@@ -18,7 +18,7 @@ describe('useOlMap Hook - Layer Addition', () => {
 
     const layer = new BaseLayer({ visible: false });
 
-    result.current.layers.push({ layer: layer, visible: layer.getVisible() });
+    result.current.layers.push({ layer: layer, visible: layer.getVisible(), opacity: 1 });
 
     await act(async () => {
       result.current.toggleLayerVisibility(layer);

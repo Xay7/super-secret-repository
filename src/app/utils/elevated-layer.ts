@@ -19,6 +19,7 @@ export async function createElevatedLayer() {
 
   const tileLayer = new TileLayer({
     extent: transformExtent(extent, 'EPSG:2176', 'EPSG:3857'),
+    opacity: 0.7,
     properties: {
       name: 'Warstwa wysokościowa',
     },

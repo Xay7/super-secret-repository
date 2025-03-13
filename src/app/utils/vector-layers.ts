@@ -17,7 +17,7 @@ import type { FeatureLike } from 'ol/Feature';
 function styleFunctionPagedArea(feature: FeatureLike) {
   return new Style({
     fill: new Fill({
-      color: 'rgba(0, 102, 204, 0.6)',
+      color: 'rgba(0, 102, 204, 0.3)',
     }),
     stroke: new Stroke({
       color: 'rgba(0, 0, 0, 1)',
@@ -41,10 +41,10 @@ function styleFunctionPagedArea(feature: FeatureLike) {
 function styleFunctionArea(feature: FeatureLike) {
   return new Style({
     fill: new Fill({
-      color: 'rgba(255, 165, 0, 0.7)',
+      color: 'rgba(255, 165, 0, 0.5)',
     }),
     stroke: new Stroke({
-      color: 'rgba(255, 69, 0, 1)',
+      color: 'rgba(0, 0, 0, 0.7)',
       width: 3,
     }),
     text: new Text({
@@ -61,10 +61,12 @@ function styleFunctionArea(feature: FeatureLike) {
   });
 }
 
-export function createAreaVectorLayer() {
+export async function createAreaVectorLayer() {
+  var dataUrl = await useGeoClient().getGeojson();
+
   const vectorLayer = new VectorLayer({
     source: new VectorSource({
-      url: 'http://localhost:5173/data/6/vectors/2472/2472.geojson',
+      url: dataUrl,
       format: new GeoJSON({
         dataProjection: 'EPSG:2167',
         featureProjection: 'EPSG:3857',

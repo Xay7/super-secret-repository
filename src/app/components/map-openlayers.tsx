@@ -5,7 +5,7 @@ import useOlMap from '../hooks/use-map';
 const OpenStreetMapComponent = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
-  const { layers, toggleLayerVisibility, initializeMap, isMapReady } = useOlMap();
+  const { layers, toggleLayerVisibility, initializeMap, isMapReady, updateLayerOpacity } = useOlMap();
 
   useEffect(() => {
     const createMap = async () => {
@@ -28,10 +28,11 @@ const OpenStreetMapComponent = () => {
                 {layer.layer.get('name')}
                 <input
                   type="range"
+                  value={layer.opacity}
                   min="0"
                   max="1"
                   step="0.05"
-                  onChange={(e) => layer.layer.setOpacity(parseFloat(e.target.value))}
+                  onChange={(e) => updateLayerOpacity(layer.layer, parseFloat(e.target.value))}
                   style={{ width: '100%' }}
                 />
               </label>

@@ -4,8 +4,14 @@ export class GeoClient {
   private baseUrl: string;
 
   // Could use axios but for exercise will stick to fetch
-  constructor(baseUrl: string = 'http://localhost:5173') {
-    this.baseUrl = baseUrl;
+  constructor() {
+    const hostname = window.location.hostname;
+
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      this.baseUrl = 'http://localhost:5173'; // Local development URL
+    } else {
+      this.baseUrl = `https://${hostname}`; // Production URL using current hostname
+    }
   }
 
   async getPagedGeojson() {
@@ -31,6 +37,10 @@ export class GeoClient {
     };
 
     return geojson;
+  }
+
+  async getGeojson() {
+    return `${this.baseUrl}/data/6/vectors/2472/2472.geojson`;
   }
 
   async getRaster(): Promise<{ dataUrl: string; metadata: TileInfo }> {

@@ -19,13 +19,19 @@ function useOlMap() {
   });
 
   // Layers should be set from map.getLayers().on("add" / "remove")
-  const [layers, setLayers] = useState<{ layer: BaseLayer; visible: boolean }[]>([]);
+  const [layers, setLayers] = useState<{ layer: BaseLayer; visible: boolean; opacity: number }[]>([]);
   const [isMapReady, setIsMapReady] = useState(false);
 
   const toggleLayerVisibility = (layer: BaseLayer) => {
     const newVisibility = !layer.getVisible();
     layer.setVisible(newVisibility);
     setLayers((prevLayers) => prevLayers.map((l) => (l.layer === layer ? { ...l, visible: newVisibility } : l)));
+  };
+
+  const updateLayerOpacity = (layer: BaseLayer, newOpacity: number) => {
+    console.log(newOpacity);
+    layer.setOpacity(newOpacity);
+    setLayers((prevLayers) => prevLayers.map((l) => (l.layer === layer ? { ...l, opacity: newOpacity } : l)));
   };
 
   /**
@@ -48,7 +54,7 @@ function useOlMap() {
     const layer = await createPagedAreaVectorLayer();
     const rasterLayer = await createRasterLayer();
     const elevatedLayer = await createElevatedLayer();
-    const vectorLayer = createAreaVectorLayer();
+    const vectorLayer = await createAreaVectorLayer();
     if (map && map.getLayers().getLength() === 0) {
       map.addLayer(osm);
       map.addLayer(rasterLayer);
@@ -57,11 +63,12 @@ function useOlMap() {
       map.addLayer(vectorLayer);
 
       const currentLayers = map.getLayers().getArray();
-      const layersWithVisibility = currentLayers.map((layer) => ({
+      const layerWithState = currentLayers.map((layer) => ({
         layer,
         visible: layer.getVisible(),
+        opacity: layer.getOpacity(),
       }));
-      setLayers(layersWithVisibility);
+      setLayers(layerWithState);
 
       const extent = rasterLayer.getExtent();
       if (extent) {
@@ -78,6 +85,7 @@ function useOlMap() {
     map,
     initializeMap,
     isMapReady,
+    updateLayerOpacity,
   };
 }
 
